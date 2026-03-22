@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece - Personagens</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b35 100%);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .titulo {
+            font-family: 'Pirata One', cursive;
+            font-size: 3em;
+            color: #ffdd00;
+            text-shadow: 3px 3px #000;
+            margin-bottom: 10px;
+        }
+
+        .voltar-btn {
+            background: linear-gradient(45deg, #ff4500, #ff6600);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .voltar-btn:hover {
+            background: linear-gradient(45deg, #ff6600, #ff8c00);
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .personagem-container {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.9), rgba(255, 140, 0, 0.9));
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out 0.3s backwards;
+        }
+
+        .personagem-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .personagem-nome {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px #000;
+        }
+
+        .personagem-texto {
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: justify;
+            color: #f0f0f0;
+            margin-bottom: 15px;
+        }
+
+        .botoes-nav {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-nav {
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="titulo">👥 PERSONAGENS</h1>
+        <a href="index.html" class="voltar-btn">← Voltar</a>
+    </header>
+
+    <div class="container">
+        <div class="personagem-container">
+            <img src="imagens/luffy.png" alt="Luffy" class="personagem-img">
+            <h2 class="personagem-nome">Monkey D. Luffy</h2>
+            <p class="personagem-texto">
+                O protagonista principal! Luffy sonha em se tornar o Rei dos Piratas. Inspirado por Shanks desde a infância, ele comeu a Gomu Gomu no Mi, transformando seu corpo em borracha. Luffy é conhecida pela sua determinação inabalável, liderança e capacidade de unir pessoas em torno de seus ideais. Ele enfrenta inimigos cada vez mais poderosos enquanto viaja pelo Grand Line com sua tripulação dos Chapéus de Palha.
+            </p>
+            <div class="botoes-nav">
+                <button class="btn-nav" onclick="mudarPersonagem(-1)">← Anterior</button>
+                <button class="btn-nav" onclick="mudarPersonagem(1)">Próximo →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const personagens = [
+            {
+                nome: "Monkey D. Luffy",
+                img: "imagens/luffy.png",
+                desc: "O protagonista principal! Luffy sonha em se tornar o Rei dos Piratas. Inspirado por Shanks desde a infância, ele comeu a Gomu Gomu no Mi, transformando seu corpo em borracha. Luffy é conhecida pela sua determinação inabalável, liderança e capacidade de unir pessoas em torno de seus ideais. Ele enfrenta inimigos cada vez mais poderosos enquanto viaja pelo Grand Line com sua tripulação dos Chapéus de Palha."
+            },
+            {
+                nome: "Roronoa Zoro",
+                img: "imagens/zoro.png",
+                desc: "O espadachim da tripulação! Zoro é um guerreiro dedicado que treinou para se tornar o maior espadachim do mundo. Domina a técnica Santoryu, lutando com três espadas simultaneamente. É conhecido por sua lealdade absoluta a Luffy, sua força brutal em combate e seu senso de justiça. Zoro é essencial para as batalhas da tripulação."
+            },
+            {
+                nome: "Sanji",
+                img: "imagens/sanji.png",
+                desc: "O cozinheiro da tripulação! Sanji é elegante, carismático e um lutador formidável usando apenas seus chutes. Ele preserva suas mãos para cozinhar, criando deliciosas refeições para a tripulação. Sanji sonha em encontrar o All Blue, o mar lendário que contém peixes de todos os oceanos. É sempre o primeiro a se oferecer para proteger seus amigos."
+            },
+            {
+                nome: "Nami",
+                img: "imagens/nami.png",
+                desc: "A navegadora da tripulação! Nami é uma cartógrafa talentosa que sonha em desenhar um mapa do mundo inteiro. Ela é inteligente, estratégica e essencial na navegação pelo Grand Line. Apesar de sua aparência doce, Nami é uma guerreira forte e não hesita em lutar pelos seus companheiros."
+            },
+            {
+                nome: "Tony Tony Chopper",
+                img: "imagens/chopper.png",
+                desc: "O médico da tripulação! Chopper comeu a Hito Hito no Mi, permitindo que se transforme em humano e várias formas híbridas. Apesar de sua aparência fofa de rena, é um médico altamente qualificado e um guerreiro capaz. Chopper tem um coração gentil, sempre preocupado com o bem-estar dos outros membros da tripulação."
+            },
+            {
+                nome: "Usopp",
+                img: "imagens/usopp.png",
+                desc: "O atatirador da tripulação! Usopp é um garoto mentiroso que ama contar histórias exageradas sobre aventuras. Apesar disso, possui um coração verdadeiro e coragem genuína. Um atirador hábil que usa uma catapulta, Usopp é essencial em estratégias de combate. Seu sonho é se tornar um guerreiro do mar lendário igual aos contos que cria!"
+            },
+            {
+                nome: "Nico Robin",
+                img: "imagens/robin.png",
+                desc: "A arqueóloga e historiadora da tripulação! Robin é a única sobrevivente de Ohara e comeu a Hana Hana no Mi, permitindo criar múltiplas partes do corpo. Ela é inteligente, enigmática e conhecedora de histórias antigas. Robin ajuda a tripulação a desvendar mistérios do mundo e historicamente é crucial para desvendar o Século em branco que o Governo quer manter oculto."
+            },
+            {
+                nome: "Franky",
+                img: "imagens/franky.png",
+                desc: "O carpinteiro e armeiro da tripulação! Franky é um ciborgue que construiu o espetacular Thousand Sunny. Ele é forte, leal e altamente hábil em reparos e construção. Com seu corpo modificado, Franky pode se transformar em uma arma viva quando necessário. Apesar de sua aparência robótica, tem um coração quente e sonha em navegar o mundo inteiro."
+            },
+            {
+                nome: "Brook",
+                img: "imagens/brook.png",
+                desc: "O músico e espadachim da tripulação! Brook é um esqueleto que foi ressuscitado pela Fruta da Ressurreição e comeu a Yomi Yomi no Mi. Ele é um violoncelista talentoso que traz alegria e música para a tripulação. Apesar de seu aspecto assustador, é amigável e engraçado. Brook é um espadachim forte e adiciona diversão a cada aventura."
+            },
+            {
+                nome: "Jimbei",
+                img: "imagens/jimbei.png",
+                desc: "O timoneiro da tripulação! Jimbei é um tubarão homem que é amigável, sábio e incrivelmente forte. Comeu a Gurudos Gurudos no Mi, podendo controlar a gravidade. Jimbei é um soldado de guerra experiente e lutador extraordinário no nível de um Imperador. Traz sabedoria e força bruta para a tripulação enquanto viajam pel o Novo Mundo."
+            }
+        ];
+
+        let index = 0;
+
+        function mudarPersonagem(direção) {
+            index = (index + direção + personagens.length) % personagens.length;
+            const p = personagens[index];
+            
+            const container = document.querySelector('.personagem-container');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                document.querySelector('.personagem-img').src = p.img;
+                document.querySelector('.personagem-nome').textContent = p.nome;
+                document.querySelector('.personagem-texto').textContent = p.desc;
+                container.style.opacity = '1';
+            }, 300);
+        }
+    </script>
+
+    <style>
+        .personagem-container {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</body>
+</html>

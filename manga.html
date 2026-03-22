@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece - Leitor de Manga Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0f3460 100%);
+            background-attachment: fixed;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('imagens/capa/capa.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== HEADER PROFISSIONAL ===== */
+        header {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.95), rgba(255, 140, 0, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 1px rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 3px solid #ffdd00;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-family: 'Pirata One', cursive;
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 3px 3px #000;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.7em;
+            color: #ffdd00;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px #000;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info-badge {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #fff;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 1em;
+            text-shadow: 1px 1px #000;
+        }
+
+        .voltar-btn {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .voltar-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+            transform: scale(1.05);
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .manga-container {
+            display: grid;
+            grid-template-columns: 240px 1fr 280px;
+            gap: 0;
+            min-height: calc(100vh - 100px);
+            max-width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SIDEBAR ESQUERDA ===== */
+        .capitulos-sidebar {
+            background: linear-gradient(180deg, rgba(42, 42, 42, 0.98), rgba(26, 26, 26, 0.98));
+            border-right: 3px solid #ff6600;
+            overflow-y: auto;
+            padding: 25px 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 8px 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar-titulo {
+            font-size: 1.4em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffdd00;
+            text-shadow: 2px 2px #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 12px;
+        }
+
+        .capitulo-item {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(20, 20, 20, 0.9));
+            border: 2px solid #ff6600;
+            padding: 14px 12px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-align: center;
+            font-size: 0.95em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capitulo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .capitulo-item:hover::before {
+            left: 100%;
+        }
+
+        .capitulo-item:hover {
+            background: linear-gradient(135deg, #ff6600, #ff8c00);
+            color: #000;
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.6);
+        }
+
+        .capitulo-item.ativo {
+            background: linear-gradient(135deg, #ff4500, #ff6600);
+            border-color: #ffdd00;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* ===== ÁREA CENTRAL ===== */
+        .manga-viewer {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 50, 0.8));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .pagina-manga {
+            background: #fff;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 9/12;
+            border: 4px solid #ff6600;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(255, 102, 0, 0.6), 0 0 40px rgba(255, 69, 0, 0.4);
+            display: flex;
+            align-items: stretch;
+            justify-content: stretch;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) rotateY(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .pagina-conteudo {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 50%, #f0f0f0 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 35px;
+            color: #000;
+            font-size: 13px;
+            line-height: 1.7;
+            text-align: justify;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pagina-conteudo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+            pointer-events: none;
+        }
+
+        .pagina-numero {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-weight: bold;
+            color: #999;
+            font-size: 0.85em;
+            text-shadow: 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .pagina-titulo-cap {
+            font-family: 'Pirata One', cursive;
+            font-size: 1.5em;
+            font-weight: 900;
+            margin-bottom: 12px;
+            text-align: center;
+            border-bottom: 3px solid #ff6600;
+            padding-bottom: 10px;
+            color: #ff4500;
+        }
+
+        .pagina-texto {
+            flex: 1;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .manga-panel {
+            background: #f5f5f5;
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+        }
+
+        /* ===== CAPA PROFISSIONAL ===== */
+        .manga-capa-capitulo {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff4500 0%, #ff6600 30%, #ff8c00 60%, #ffaa00 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manga-capa-capitulo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.15) 10px,
+                rgba(255, 255, 255, 0.15) 20px
+            );
+            animation: brilho 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes brilho {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50%, 50%);
+            }
+        }
+
+        .capa-conteudo {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-shadow: 3px 3px #000, -1px -1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .capa-revista {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #fff;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            letter-spacing: 2px;
+        }
+
+        .capa-numero-capitulo {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 4px 4px #000;
+            letter-spacing: 3px;
+        }
+
+        .capa-titulo-principal {
+            font-family: 'Pirata One', cursive;
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .capa-divider {
+            width: 80%;
+            height: 3px;
+            background: #fff;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .capa-titulo-nome {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .capa-descricao-capitulo {
+            font-size: 1.1em;
+            line-height: 1.8;
+            max-width: 380px;
+            margin: 25px auto;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #fff;
+            border-right: 5px solid #ffdd00;
+            font-weight: 600;
+        }
+
+        .capa-autor {
+            font-size: 1.1em;
+            margin-top: 30px;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        /* ===== CONTROLES DE NAVEGAÇÃO ===== */
+        .navegacao {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-nav {
+            background: linear-gradient(135deg, #ff4500, #ff6600);
+            color: #fff;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 900;
+            transition: all 0.3s;
+            font-size: 1.05em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-nav:hover::before {
+            left: 100%;
+        }
+
+        .btn-nav:hover {
+            background: linear-gradient(135deg, #ff6600, #ff8c00);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.8);
+        }
+
+        .btn-nav:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* ===== SIDEBAR DIREITA ===== */
+        .info-sidebar {
+            background: linear-gradient(180deg, rgba(42, 42, 42, 0.98), rgba(26, 26, 26, 0.98));
+            border-left: 3px solid #ff6600;
+            padding: 25px 15px;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            box-shadow: -8px 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .info-titulo {
+            font-size: 1.3em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffdd00;
+            text-shadow: 2px 2px #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 12px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(20, 20, 20, 0.9));
+            border: 2px solid #ff6600;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.7;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-label {
+            color: #ffdd00;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== SCROLLBAR CUSTOMIZADO ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 26, 26, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff4500, #ff6600);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ff6600, #ff8c00);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 1400px) {
+            .manga-container {
+                grid-template-columns: 200px 1fr 200px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .manga-container {
+                grid-template-columns: 1fr;
+            }
+
+            .capitulos-sidebar,
+            .info-sidebar {
+                display: none;
+            }
+
+            header {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8em;
+            }
+
+            .pagina-manga {
+                max-width: 90vw;
+                aspect-ratio: 2/3;
+            }
+
+            .pagina-conteudo {
+                padding: 20px;
+                font-size: 12px;
+            }
+
+            .manga-capa-capitulo {
+                padding: 25px;
+            }
+
+            .capa-numero-capitulo {
+                font-size: 2.5em;
+            }
+
+            .capa-titulo-principal {
+                font-size: 2em;
+            }
+
+            .capa-titulo-nome {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <div>
+                <div class="logo">📖 ONE PIECE</div>
+                <div class="logo-subtitle">Mangá Completo</div>
+            </div>
+        </div>
+        <div class="header-info">
+            <div class="info-badge">📕 Capítulo: <span id="cap-display">1</span>/10</div>
+            <a href="index.html" class="voltar-btn">← Voltar</a>
+        </div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL -->
+    <div class="manga-container">
+        <!-- SIDEBAR ESQUERDA -->
+        <div class="capitulos-sidebar">
+            <div class="sidebar-titulo">📚 Capítulos</div>
+            <div id="lista-capitulos"></div>
+        </div>
+
+        <!-- ÁREA CENTRAL -->
+        <div class="manga-viewer">
+            <div class="pagina-manga">
+                <div class="pagina-conteudo">
+                    <div class="pagina-titulo-cap" id="titulo-pagina">Capítulo 1</div>
+                    <div class="pagina-texto" id="conteudo-pagina">
+                        <div class="manga-panel">Carregando conteúdo...</div>
+                    </div>
+                    <div class="pagina-numero" id="num-pagina">Página 1</div>
+                </div>
+            </div>
+
+            <div class="navegacao">
+                <button class="btn-nav" onclick="capituloAnterior()">← Anterior</button>
+                <button class="btn-nav" onclick="proximaCapitulo()">Próximo →</button>
+            </div>
+        </div>
+
+        <!-- SIDEBAR DIREITA -->
+        <div class="info-sidebar">
+            <div class="info-titulo">ℹ️ Info</div>
+            <div class="info-box">
+                <div class="info-label">Série</div>
+                ONE PIECE
+            </div>
+            <div class="info-box">
+                <div class="info-label">Autor</div>
+                Eiichiro Oda
+            </div>
+            <div class="info-box">
+                <div class="info-label">Tipo</div>
+                Mangá
+            </div>
+            <div class="info-box">
+                <div class="info-label">Status</div>
+                Em Publicação ✓
+            </div>
+            <div class="info-box">
+                <div class="info-label">Total</div>
+                1000+ Capítulos
+            </div>
+            <div class="info-box">
+                <div class="info-label">Descrição</div>
+                A jornada épica de Luffy em busca do tesouro lendário!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const capitulos = [
+            { 
+                num: 1, 
+                titulo: "O Começo de Uma Lenda", 
+                descricao: "Uma jornada épica começa aqui...",
+                conteudo: "Um jovem menino chamado Monkey D. Luffy em uma pequena aldeia litorânea sonha em se tornar o Rei dos Piratas. Sua vida muda quando come uma Fruta do Demônio misteriosa, ganhando poderes incríveis. Inspirado pelo grande pirata Gol D. Roger e influenciado pelo poderoso Shanks, Luffy embarca em uma jornada épica que durará toda sua vida em busca do Grand Line!" 
+            },
+            { 
+                num: 2, 
+                titulo: "Encontro com o Espadachim", 
+                descricao: "O maior espadachim do mundo entra em cena",
+                conteudo: "Luffy encontra Zoro, um poderoso espadachim preso e condenado à morte. Após uma luta épica libertar seu potencial, Zoro se junta à tripulação com um sonho próprio: se tornar o maior espadachim do mundo! Juntos, criam o grupo dos Chapéus de Palha." 
+            },
+            { 
+                num: 3, 
+                titulo: "A Bela Navegadora", 
+                descricao: "A dona do mar se junta à equipe",
+                conteudo: "Luffy conhece Nami, uma ladra inteligente e uma hábil navegadora que mapeia o mundo. Após uma aventura envolvendo proteção e promessas, ela se torna parte vital da equipe com seu próprio sonho de mapear cada centímetro do mundo!" 
+            },
+            { 
+                num: 4, 
+                titulo: "O Mentiroso Corajoso", 
+                descricao: "Um coração verdadeiro por trás das histórias",
+                conteudo: "Usopp, um menino do vilarejo Syrup que sempre mente sobre aventuras heroicas. Apesar de seus exageros, ele possui um coração corajoso e genuíno, se juntando aos Chapéus de Palha para realmente viver as aventuras que tanto ama contar!"
+            },
+            { 
+                num: 5, 
+                titulo: "O Cozinheiro Elegante", 
+                descricao: "Força e elegância navegam os mares",
+                conteudo: "Sanji, um cozinheiro excelente apaixonado pelo mar e pela arte culinária, se torna parte fundamental da tripulação. Com sua elegância singular, força inabalável e honra inquestionável, ele promete proteger todos e preparar as melhores refeições!"
+            },
+            { 
+                num: 6, 
+                titulo: "Chopper, o Médico Rena", 
+                descricao: "A medicina que cura todos os males",
+                conteudo: "Uma rena inteligente come uma Fruta do Demônio e se torna humana. Chopper, o novo médico da tripulação, sonha em curar todas as doenças do mundo e encontrar a verdadeira medicina que pode salvar vidas. Sua presença traz alegria ao grupo!"
+            },
+            { 
+                num: 7, 
+                titulo: "A Arqueóloga Misteriosa", 
+                descricao: "Desvendando segredos do mundo antigo",
+                conteudo: "Robin, a última sobrevivente de Ohara, se junta como arqueóloga da tripulação. Com seu conhecimento antigo abrangente e habilidades especiais únicas, ela ajuda a desvendar os mistérios profundos do mundo e a história perdida de séculos!"
+            },
+            { 
+                num: 8, 
+                titulo: "O Carpinteiro dos Sonhos", 
+                descricao: "Um navio dos sonhos para viagens eternas",
+                conteudo: "Franky, um carpinteiro ciborgue que construiu o majestoso Thousand Sunny, se torna o armeiro perfeito da tripulação. Com suas habilidades extraordinárias de construção e força aumentada por tecnologia, ele mantém o navio em perfeito estado funcionando!"
+            },
+            { 
+                num: 9, 
+                titulo: "O Músico Imortal", 
+                descricao: "Alegria e música em cada aventura",
+                conteudo: "Brook, um esqueleto músico que foi ressuscitado pela Fruta da Ressurreição, se junta como músico da tripulação. Com suas músicas encantadoras e espírito imortal, ele traz diversão, alegria e entretenimento a todos os Chapéus de Palha!"
+            },
+            { 
+                num: 10, 
+                titulo: "O Novo Mundo Começa", 
+                descricao: "Aventuras ainda maiores os aguardam",
+                conteudo: "Após treinamento intenso e preparação estratégica para o Novo Mundo, Luffy e sua tripulação dos Chapéus de Palha definitivamente entram em uma nova era de aventuras épicas. Os perigos aumentam exponencialmente, os inimigos ficam muito mais fortes, mas seus corações únicos e amizade inabalável permanecem fortes!"
+            }
+        ];
+
+        let capituloAtual = 1;
+        let mostraCapa = true;
+
+        function carregarCapitulo(num) {
+            if (num < 1 || num > capitulos.length) return;
+            
+            capituloAtual = num;
+            mostraCapa = true;
+            
+            const cap = capitulos.find(c => c.num === num);
+            document.getElementById('cap-display').textContent = num;
+            
+            document.getElementById('conteudo-pagina').innerHTML = `
+                <div class="manga-capa-capitulo">
+                    <div class="capa-conteudo">
+                        <div class="capa-revista">✦ WEEKLY SHONEN JUMP ✦</div>
+                        <div class="capa-numero-capitulo">CAP ${cap.num}</div>
+                        <div class="capa-titulo-principal">ONE PIECE</div>
+                        <div class="capa-divider"></div>
+                        <div class="capa-titulo-nome">${cap.titulo}</div>
+                        <div class="capa-descricao-capitulo">"${cap.descricao}"</div>
+                        <div class="capa-autor">✧ Escrito & Ilustrado por Eiichiro Oda ✧</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('titulo-pagina').textContent = `Capítulo ${cap.num}`;
+            document.getElementById('num-pagina').textContent = `Capa do Capítulo ${num}`;
+            
+            document.querySelectorAll('.capitulo-item').forEach(item => {
+                item.classList.remove('ativo');
+            });
+            document.querySelector(`[data-cap="${num}"]`).classList.add('ativo');
+            document.querySelector(`[data-cap="${num}"]`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            atualizarBotoes();
+        }
+
+        function mostrarConteudo() {
+            const cap = capitulos.find(c => c.num === capituloAtual);
+            mostraCapa = false;
+            document.getElementById('conteudo-pagina').innerHTML = `<div class="manga-panel">${cap.conteudo}</div>`;
+            document.getElementById('titulo-pagina').textContent = `Capítulo ${cap.num}: ${cap.titulo}`;
+            document.getElementById('num-pagina').textContent = `Página 1 - Capítulo ${capituloAtual}`;
+        }
+
+        function proximaCapitulo() {
+            if (mostraCapa) {
+                mostrarConteudo();
+            } else if (capituloAtual < capitulos.length) {
+                carregarCapitulo(capituloAtual + 1);
+            }
+        }
+
+        function capituloAnterior() {
+            if (mostraCapa && capituloAtual > 1) {
+                carregarCapitulo(capituloAtual - 1);
+            } else if (!mostraCapa) {
+                carregarCapitulo(capituloAtual);
+            }
+        }
+
+        function atualizarBotoes() {
+            document.querySelectorAll('.btn-nav').forEach((btn, idx) => {
+                if (idx === 0) {
+                    btn.disabled = (capituloAtual === 1 && mostraCapa);
+                } else {
+                    btn.disabled = (capituloAtual === capitulos.length && !mostraCapa);
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const lista = document.getElementById('lista-capitulos');
+            capitulos.forEach(cap => {
+                const div = document.createElement('div');
+                div.className = 'capitulo-item ativo';
+                div.dataset.cap = cap.num;
+                div.textContent = `Cap. ${cap.num}`;
+                div.onclick = () => carregarCapitulo(cap.num);
+                lista.appendChild(div);
+            });
+            carregarCapitulo(1);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') capituloAnterior();
+            if (e.key === 'ArrowRight') proximaCapitulo();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece - Curiosidades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b35 100%);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .titulo {
+            font-family: 'Pirata One', cursive;
+            font-size: 3em;
+            color: #ffdd00;
+            text-shadow: 3px 3px #000;
+            margin-bottom: 10px;
+        }
+
+        .voltar-btn {
+            background: linear-gradient(45deg, #ff4500, #ff6600);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .voltar-btn:hover {
+            background: linear-gradient(45deg, #ff6600, #ff8c00);
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .curiosidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .curiosidade-card {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.9), rgba(255, 140, 0, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            animation: slideInUp 0.8s ease-out;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .curiosidade-card:nth-child(1) { animation-delay: 0.1s; }
+        .curiosidade-card:nth-child(2) { animation-delay: 0.2s; }
+        .curiosidade-card:nth-child(3) { animation-delay: 0.3s; }
+        .curiosidade-card:nth-child(4) { animation-delay: 0.4s; }
+        .curiosidade-card:nth-child(5) { animation-delay: 0.5s; }
+        .curiosidade-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .curiosidade-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+
+        .curiosidade-titulo {
+            font-size: 1.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #000;
+        }
+
+        .curiosidade-texto {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #f0f0f0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="titulo">🔍 CURIOSIDADES</h1>
+        <a href="index.html" class="voltar-btn">← Voltar</a>
+    </header>
+
+    <div class="container">
+        <div class="curiosidades-grid">
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">📚 Manga Recorde</div>
+                <p class="curiosidade-texto">
+                    One Piece é o manga mais vendido de todos os tempos, com mais de 500 milhões de cópias vendidas em todo o mundo! Eiichiro Oda criou uma obra verdadeiramente monumental.
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">🎨 Criação do Luffy</div>
+                <p class="curiosidade-texto">
+                    Monkey D. Luffy foi inspirado por heróis cômicos e aventureiros clássicos. Seu nome "Luffy" vem de uma possível referência a personagens baseados em força e determinação.
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">🏝️ Raftel vs Laugh Tale</div>
+                <p class="curiosidade-texto">
+                    A final ilha do Grand Line tinha o nome "Raftel" no mangá, mas foi revelado que o nome real é "Laugh Tale", significando "Conto de Risadas" em inglês!
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">🍎 Frutas do Demônio</div>
+                <p class="curiosidade-texto">
+                    As Akuma no Mi (Frutas do Demônio) conferem poderes únicos, mas deixam o consumidor vulnerável à água do mar. São frutas raríssimas espalhadas pelo mundo!
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">⚡ Haki Especial</div>
+                <p class="curiosidade-texto">
+                    Haki é uma força espiritual que permite aos lutadores transcender seus limites naturais. Existem três tipos: Observação, Armadura e Vontade do Conquistador!
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">🔐 Século Vazio</div>
+                <p class="curiosidade-texto">
+                    Um dos maiores mistérios de One Piece! O Século Vazio é um período histórico apagado pelo Governo Mundial, guardando segredos que podem mudar tudo!
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">🎬 Filmes Épicos</div>
+                <p class="curiosidade-texto">
+                    One Piece tem 15 filmes cinematográficos, sendo alguns deles histórias originais que expandem o universo e trazem batalhas espetaculares!
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">💎 Wanted Posters</div>
+                <p class="curiosidade-texto">
+                    Os cartazes de procurado são um elemento icônico! As recompensas dos personagens aumentam ao longo da série, refletindo suas façanhas!
+                </p>
+            </div>
+
+            <div class="curiosidade-card">
+                <div class="curiosidade-titulo">🏴‍☠️ Piratas Famosos</div>
+                <p class="curiosidade-texto">
+                    O Rei Pirata anterior, Gol D. Roger, deixou o maior tesouro do mundo - o One Piece. Sua morte marcou o início de uma nova era de pirataria!
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

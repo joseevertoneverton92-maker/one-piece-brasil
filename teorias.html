@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece - Teorias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b35 100%);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .titulo {
+            font-family: 'Pirata One', cursive;
+            font-size: 3em;
+            color: #ffdd00;
+            text-shadow: 3px 3px #000;
+            margin-bottom: 10px;
+        }
+
+        .voltar-btn {
+            background: linear-gradient(45deg, #ff4500, #ff6600);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .voltar-btn:hover {
+            background: linear-gradient(45deg, #ff6600, #ff8c00);
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .teoria-card {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.9), rgba(255, 140, 0, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+            animation: slideInUp 0.8s ease-out;
+            transition: all 0.3s;
+        }
+
+        .teoria-card:nth-child(1) { animation-delay: 0.1s; }
+        .teoria-card:nth-child(2) { animation-delay: 0.2s; }
+        .teoria-card:nth-child(3) { animation-delay: 0.3s; }
+        .teoria-card:nth-child(4) { animation-delay: 0.4s; }
+        .teoria-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .teoria-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+
+        .teoria-titulo {
+            font-size: 1.8em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px #000;
+        }
+
+        .teoria-texto {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #f0f0f0;
+            text-align: justify;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .teoria-status {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255,255,255,0.3);
+            font-size: 0.95em;
+            font-style: italic;
+            color: #ffdd00;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="titulo">💭 TEORIAS E MISTÉRIOS</h1>
+        <a href="index.html" class="voltar-btn">← Voltar</a>
+    </header>
+
+    <div class="container">
+        <div class="teoria-card">
+            <div class="teoria-titulo">🔮 O One Piece Não é um Tesouro Material</div>
+            <p class="teoria-texto">
+                Uma das maiores teorias é que o One Piece não é apenas ouro e joias, mas sim um segredo capaz de transformar o mundo de One Piece para sempre! Pode ser uma informação sobre o origem do mundo, o Século Vazio, ou até mesmo a verdade sobre o Governo Mundial!
+            </p>
+            <p class="teoria-status">Status: Altamente Provável 🎯</p>
+        </div>
+
+        <div class="teoria-card">
+            <div class="teoria-titulo">⚡ O Poder Final de Luffy</div>
+            <p class="teoria-texto">
+                Fãs especulam que Luffy combinará seu Haki de Conquistador avançado com uma forma de fruta do demônio oculta, criando um poder sem precedentes. Alguns acreditam que ele pode despertar o Nika Kami, a fruta do sol! Sua determinação inabalável pode liberar potenciais adormecidos.
+            </p>
+            <p class="teoria-status">Status: Em Discussão 🤔</p>
+        </div>
+
+        <div class="teoria-card">
+            <div class="teoria-titulo">📖 O Século Vazio Será Revelado</div>
+            <p class="teoria-texto">
+                O Governo Mundial apagou um período histórico inteiro para esconder a verdade! Nico Robin, como arqueóloga, eventualmente descobrirá os segredos genuínos do Século Vazio. Isso pode revelar aliados antigos, guerras passadas e a origem do próprio Governo Mundial!
+            </p>
+            <p class="teoria-status">Status: Aguardando Revelação 📜</p>
+        </div>
+
+        <div class="teoria-card">
+            <div class="teoria-titulo">🏴‍☠️ Gol D. Roger e Luffy são Reencarnações</div>
+            <p class="teoria-texto">
+                Alguns fãs acreditam que Luffy pode ser uma encarnação do espírito de Gol D. Roger ou compartilha destinos semelhantes! O final do manga pode revelar conexões místicas entre o Rei Pirata anterior e o próximo. A vontade do D em Luffy pode ser a chave!
+            </p>
+            <p class="teoria-status">Status: Especulação 👑</p>
+        </div>
+
+        <div class="teoria-card">
+            <div class="teoria-titulo">⚔️ Zoro Encontrará Seus Ancestrais</div>
+            <p class="teoria-texto">
+                Zoro pode descobrir que vem de uma linhagem de lendários espadachins do passado! Seu sonho de se tornar o maior espadachim pode ser conectado a heróis antigos. Conhecer sua verdadeira herança pode destravar um poder ainda maior e um novo nível de força com suas espadas!
+            </p>
+            <p class="teoria-status">Status: Possível Desenvolvimento 🗡️</p>
+        </div>
+    </div>
+</body>
+</html>
